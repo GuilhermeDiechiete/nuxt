@@ -17,7 +17,7 @@ const isMobile = useMediaQuery('(max-width: 768px)')
         <NavBarDesktop v-else />
 
         <Reports v-if="globalStore.navegation === 'reports'"/>
-        <Outputs v-if="globalStore.navegation === 'outputs'"/>
+        <TableOutputs v-if="globalStore.navegation === 'outputs'"/>
         <Inputs v-if="globalStore.navegation === 'inputs'"/>
         <Investments v-if="globalStore.navegation === 'investments'"/>
     </div>
