@@ -1,0 +1,7 @@
+CRIAR BOTÃO EM REPORTS PARA O USUARIO ESCOLHER ENTRE GRAFICO VERTICAL OU HORIZONTAL 
+
+Parte de alteração 
+
+  plotOptions: {
+    bar: {
+      horizontal: false,
