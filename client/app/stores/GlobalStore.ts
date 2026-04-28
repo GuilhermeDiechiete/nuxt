@@ -5,6 +5,8 @@ import { today , getLocalTimeZone } from '@internationalized/date'
 export const useGlobalStore = defineStore('global', {
   state: () => ({
 
+    // criar variavel que identifica se a tela é desktop ou mobile
+
     // Controle de navegação do Dashboard
     navegation: 'outputs',
     
@@ -19,7 +21,12 @@ export const useGlobalStore = defineStore('global', {
     MonthSelected: 0,
     DaySelected: 0,
     
-    filterTable: '',
+    ListOutputs: [],
+    ListInputs: [],
+    TotalOutputs_month: 0,
+    TotalInputs_month:0,
+    TotalOutputs_year: 0,
+    TotalInputs_year: 0
 
   }),
 

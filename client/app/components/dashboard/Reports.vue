@@ -22,37 +22,58 @@ const options = {
     stacked: true,
     toolbar: { show: false },
     zoom: { enabled: false },
-    stackType: "100%"
+    stackType: '100%'
   },
 
   plotOptions: {
     bar: {
       horizontal: false,
       borderRadius: 4,
-      columnWidth: '55%' // 👈 melhora no mobile e desktop
+      columnWidth: '55%'
     }
   },
+
+  colors: ['#00E396', '#FF4560', '#FEB019'],
 
   xaxis: {
     categories: [
       'Jan','Fev','Mar','Abr','Mai','Jun',
       'Jul','Ago','Set','Out','Nov','Dez'
-    ]
+    ],
+    labels: {
+      style: {
+        colors: '#d1d5db' // cinza claro
+      }
+    }
   },
 
-  colors: ['#00E396', '#FF4560', '#FEB019'],
-
-  dataLabels: {
-    enabled: false // 👈 melhora visual no mobile
+  yaxis: {
+    labels: {
+      style: {
+        colors: '#d1d5db' // cinza claro
+      }
+    }
   },
 
   legend: {
-    position: 'top'
+    position: 'top',
+    labels: {
+      colors: '#d1d5db' // cinza claro
+    }
   },
 
   tooltip: {
     shared: true,
-    intersect: false
+    intersect: false,
+    theme: 'dark'
+  },
+
+  dataLabels: {
+    enabled: false
+  },
+
+  grid: {
+    borderColor: '#374151'
   },
 
   responsive: [
@@ -61,7 +82,7 @@ const options = {
       options: {
         plotOptions: {
           bar: {
-            columnWidth: '75%' // 👈 mais largo no mobile
+            columnWidth: '75%'
           }
         },
         legend: {

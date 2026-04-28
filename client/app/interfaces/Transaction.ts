@@ -1,5 +1,7 @@
-export interface Output {
-  id: string
+export interface Transaction {
+  id: number
+  group_id: number
+  type: string
   date: string
   description: string
   category: string
@@ -7,6 +9,5 @@ export interface Output {
   current_installment: number
   total_installment: number
   status: 'paid' | 'pending'
-  amount: number,
-  futures: boolean
+  amount: number
 }
