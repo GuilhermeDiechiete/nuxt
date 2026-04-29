@@ -31,6 +31,7 @@ https://lucide.dev/
 Biblioteca leve, performática e totalmente tipada para validação de dados em TypeScript, ideal para formulários e schemas de validação.  
 https://valibot.dev/
 
+### apexcharts 5.10.6
 ---
 
 ## 📦 Visão geral do projeto

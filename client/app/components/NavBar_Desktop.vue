@@ -6,11 +6,11 @@ const globalStore = useGlobalStore()
 
 const Items: NavigationMenuItem[] = [
   {
-    label: 'Support',
+    label: 'Suporte',
     icon: 'i-lucide-message-circle'
   },
   {
-    label: 'Profile',
+    label: 'Meu Perfil',
     icon: 'i-lucide-user'
   }
 ]
@@ -48,23 +48,27 @@ const bottomItems = computed<NavigationMenuItem[]>(() => [
 
     <!-- TOP MENU -->
     <div class="fixed top-0 left-0 right-0 z-50">
+      <div class="flex items-center justify-between border-b border-default py-2 min-h-16 px-2 bg-default">
       <UNavigationMenu
         :items="bottomItems"
         :ui="{
           root: 'justify-around border-b border-default py-2 min-h-16',
           item: 'py-0',
-          link: (state) => [
-            'flex-col gap-1 px-3',
-            selected === state.item.label.toLowerCase() ? 'text-orange-500' : ''
-          ],
-          linkLeadingIcon: (state) => [
-            'size-5',
-            selected === state.item.label.toLowerCase() ? 'text-orange-500' : ''
-          ],
           linkLabel: 'text-[10px]/3 font-normal'
         }"
         class="w-full"
       />
+
+      <UNavigationMenu
+          :items="Items"
+          :ui="{
+          root: 'justify-around border-b border-default py-2 min-h-16',
+          item: 'py-0',
+          linkLabel: 'text-[10px]/3 font-normal',
+          }"
+        />
+      </div>
+
     </div>
   </div>
 </template>

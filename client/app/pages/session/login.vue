@@ -1,46 +1,90 @@
 <script setup lang="ts">
-import { pageLinks } from '#build/ui';
-import type { ButtonProps, AuthFormField } from '@nuxt/ui'
+import { reactive } from 'vue'
+import { useSessionStore } from '#imports'
+import type { FormSubmitEvent } from '@nuxt/ui'
+import * as v from 'valibot'
 
-const providers = ref<ButtonProps[]>([
-  {
-    label: 'Google',
-    icon: 'i-simple-icons-google',
-    color: 'neutral',
-    variant: 'subtle'
-  },
-  {
-    label: 'GitHub',
-    icon: 'i-simple-icons-github',
-    color: 'neutral',
-    variant: 'subtle'
+// Schema login
+const loginSchema = v.object({
+  email: v.pipe(
+    v.string(),
+    v.nonEmpty('Informe o e-mail'),
+    v.email('E-mail inválido')
+  ),
+  password: v.pipe(
+    v.string(),
+    v.nonEmpty('Informe a senha'),
+    v.minLength(6, 'Senha inválida')
+  )
+})
+
+type LoginSchema = v.InferOutput<typeof loginSchema>
+
+const sessionStore = useSessionStore()
+
+const form = reactive<LoginSchema>({
+  email: '',
+  password: ''
+})
+
+async function submit(event: FormSubmitEvent<LoginSchema>) {
+  const data = event.data
+
+  const res = await sessionStore.login(data)
+
+  if (res) {
+    setTimeout(() => navigateTo('/dashboard/panel'), 3000)
   }
-])
-const fields = ref<AuthFormField[]>([
-  {
-    name: 'email',
-    type: 'text',
-    label: 'Email'
-  },
-  {
-    name: 'password',
-    type: 'password',
-    label: 'Password'
-  }
-])
+}
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center">
-    <UCard>
-      <UAuthForm
-        title="Login"
-        description="Enter your credentials to access your account."
-        icon="i-lucide-user"
-        :providers="providers"
-        :fields="fields"
-        class="max-w-md w-full"
-      />
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <UCard class="w-full max-w-md">
+
+      <template #header>
+        <h1 class="text-xl font-bold">Login</h1>
+        <p class="text-sm text-gray-500">
+          Entre com sua conta
+        </p>
+      </template>
+
+      <UForm
+        :schema="loginSchema"
+        :state="form"
+        class="space-y-4"
+        @submit="submit"
+      >
+        <UFormField label="E-mail" name="email">
+          <UInput
+            v-model="form.email"
+            type="email"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UFormField label="Senha" name="password">
+          <UInput
+            v-model="form.password"
+            type="password"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UButton type="submit" block>
+          Entrar
+        </UButton>
+
+        <div class="text-center text-sm">
+          <NuxtLink
+            to="/user/register"
+            class="text-primary hover:underline"
+          >
+            Criar conta
+          </NuxtLink>
+        </div>
+      </UForm>
+
     </UCard>
   </div>
 </template>
