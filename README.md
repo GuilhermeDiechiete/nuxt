@@ -42,6 +42,11 @@ A aplicação utiliza uma stack moderna para garantir alta performance, organiza
 
 ---
 
+## Projeto Backend
+
+Está aplicativo FRONTEND está utilizando o projeto Backend, desenvolvido em Adonis.js 
+
+Link do projeto: https://github.com/GuilhermeDiechiete/adonis
 
 ---
 
