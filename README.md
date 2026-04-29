@@ -84,5 +84,27 @@ Este token:
 
 ## 🧪 Validações
 
-Todas as validações de formulário são centralizadas no diretório:
+Todas as validações de formulário são centralizadas no diretório: /validators
 
+
+# 🔄 Fluxo de comunicação com o Backend
+
+Todas as requisições da aplicação são centralizadas através do **Pinia Stores**.
+
+Ou seja, os componentes nunca fazem chamadas diretas ao backend. Toda comunicação ocorre via store, garantindo maior organização, padronização e controle de estado.
+
+---
+
+## 📡 Padrão de resposta do Backend
+
+O backend é responsável por retornar **sempre uma resposta padronizada em JSON**, independentemente do resultado da requisição.
+
+Exemplo de resposta:
+
+### ✔️ Sucesso
+```json
+{
+  "success": true,
+  "message": "Operação realizada com sucesso",
+  "data": {}
+}
