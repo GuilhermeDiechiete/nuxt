@@ -1,4 +1,4 @@
-const url = 'http://localhost/3333'
+const url = 'http://localhost:3333'
 
 export const api = {
     routes: {

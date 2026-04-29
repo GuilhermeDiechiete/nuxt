@@ -2,71 +2,39 @@ import { defineStore } from 'pinia' // Pinia
 import { api } from '~/api/server' // arquivo de config de acesso ao backend
 import { useGlobalStore } from '#imports' // UserStore vai enviar mensagem para GlobalStore de msg de success ou error
 
-import type { Create } from '~/interfaces/user'
+import type { CreateUser } from '~/interfaces/user'
 
 export const useUserStore = defineStore('user', {
   
-  state: (): Create => ({
-    
-    full_name: '',
-    username: '',
-    birth: '',
-    phone: '',
-    email: '',
-    password: '',
-    confirm_password: ''
-    
-    
-  }),
+ 
 
   actions: {
   // CRIAÇÃO DE USUÁRIO
-  async create() {
+    async create(payload: CreateUser) {
 
-    // usado para enviar mensagem de success ou error globalmente
-    const globalStore = useGlobalStore()
+      const globalStore = useGlobalStore()
 
-    // tinha validações aqui, acho que esta errado, devo criar uma pasta de validators
+      try {
+        const res = await $fetch<{ message: string }>(api.routes.users,  {
+          method: 'POST',
+          body: payload
+        })
+        globalStore.msg_success = res.message
+        console.log(res.message)
 
-    try {
-      const res = await $fetch<{ message: string }>(api.routes.users, {
-        method: 'POST',
-        body: {
-          full_name: this.full_name,
-          username: this.username,
-          birth: this.birth,
-          phone: this.phone,
-          email: this.email,
-          password: this.password,
-          confirm_password: this.confirm_password
-        }
-      })
+        // Limpar campos de payload
+        return true
 
-      // Salva mensagem de sucesso do backend globalmente
-      globalStore.msg_success = res.message
-      console.log(globalStore.msg_success)
+      } catch (error: any) {
+          const message =
+    error?.data?.message || 'Erro inesperado'
 
-      // limpeza dos campos do formulário
-      this.full_name = ''
-      this.username = ''
-      this.birth = ''
-      this.phone = ''
-      this.email = ''
-      this.password = ''
-      this.confirm_password = ''
-      return true
-      
-
-    } catch (error: any) {
-      // Salva mensagem de erro do backend globalmente
-      globalStore.msg_error = error?.data?.message || error?.message || 'Erro inesperado'
-      console.log(globalStore.msg_error)
-      return false
+  globalStore.msg_error = message
+  console.log(message)
+        return false
+      }
     }
   }
-}
-
-
 
 
 })

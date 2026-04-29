@@ -8,7 +8,7 @@ export const useGlobalStore = defineStore('global', {
     // criar variavel que identifica se a tela é desktop ou mobile
 
     // Controle de navegação do Dashboard
-    navegation: 'outputs',
+    navegation: ref('outputs'),
     
     // Variaveis para receber mensagem do Backend
     msg_error: '',

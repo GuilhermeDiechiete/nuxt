@@ -1,5 +1,5 @@
-export interface Create {
-  full_name: string
+export interface CreateUser {
+  fullname: string
   username: string
   birth: string
   phone: string
@@ -7,3 +7,11 @@ export interface Create {
   password: string
   confirm_password: string
 }
+
+// full_name
+// username
+// birth
+// phone
+// email
+// password
+

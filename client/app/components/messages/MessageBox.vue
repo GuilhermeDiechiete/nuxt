@@ -1,0 +1,4 @@
+<template>
+    <ToastError/>
+    <ToastSuccess/>
+</template>
