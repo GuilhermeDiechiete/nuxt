@@ -108,12 +108,12 @@ async toggleStatus(id: number) {
 },
 
     // DELETAR CATEGORIA 
-    async deleteCategory(id: number) {
+    async deleteTransaction(id: number, futures: boolean) {
       const globalStore = useGlobalStore()
       const sessionStore = useSessionStore()
 
       try {
-        const res = await $fetch<{ message: string }>(`${api.routes.categories}/${id}`,
+        const res = await $fetch<{ message: string }>(`${api.routes.transactions}/${id}/${futures}`,
           {
             method: 'DELETE',
             headers: {

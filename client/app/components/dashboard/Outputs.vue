@@ -4,6 +4,7 @@ import type { TableColumn } from '@nuxt/ui'
 import { onMounted } from 'vue'
 import type { Transaction } from '~/interfaces/Transaction'
 import { useTransactionStore } from '#imports'
+import ModalDelete from '../ModalDelete.vue'
 
 const UButton = resolveComponent('UButton')
 
@@ -50,8 +51,11 @@ const columns: TableColumn<Transaction>[] = [
   },
   {
     accessorKey: 'date',
-    header: 'Venc.',
-    meta: center
+    header: 'Vencimento',
+    cell: ({ row }) => {
+      const date = row.getValue('date') as string
+      return date.split('-').reverse().join('-')
+    }
   },
 
   {
@@ -88,6 +92,14 @@ const columns: TableColumn<Transaction>[] = [
         currency: 'BRL'
       }).format(amount)
     }
+  },
+  {
+    id: 'delete',
+    header: 'Excluir',
+    cell: ({ row }) =>
+      h(ModalDelete, {
+        id: Number(row.original.id)
+      })
   },
 ]
 </script>
