@@ -1,14 +1,22 @@
 <script setup lang="ts">
 import { h, resolveComponent } from 'vue'
-import { upperFirst } from 'scule'
 import type { TableColumn } from '@nuxt/ui'
-import { transactionsMock } from '~/api/mocks/transaction'
+import { onMounted } from 'vue'
 import type { Transaction } from '~/interfaces/Transaction'
+import { useTransactionStore } from '#imports'
 
-const data = ref(transactionsMock) // vem os dados do Banco de dados
+const UButton = resolveComponent('UButton')
+
+const transactionStore = useTransactionStore()
+
+const { ListOutputs } = storeToRefs(transactionStore)
+
 const UBadge = resolveComponent('UBadge')
-const table = useTemplateRef('table')
 const globalFilter = ref('')
+
+onMounted(async () => {
+  await transactionStore.fetchTransaction()
+})
 
 const center = {
   class: {
@@ -20,35 +28,52 @@ const center = {
 // Cabeçalho da tabela
 const columns: TableColumn<Transaction>[] = [
   {
-    accessorKey: 'date',
-    header: 'Date',
-    meta: center
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => {
+      const status = row.getValue('status') as 'paid' | 'pending'
+
+      return h(UButton, {
+        color: status === 'paid' ? 'success' : 'warning',
+        variant: 'soft',
+        label: status === 'paid' ? 'Pago' : 'Pendente',
+        onClick: () =>
+          transactionStore.toggleStatus(Number(row.original.id))
+      })
+    }
   },
+
   {
     accessorKey: 'description',
-    header: 'Description',
+    header: 'Descrição',
     meta: center
   },
   {
+    accessorKey: 'date',
+    header: 'Venc.',
+    meta: center
+  },
+
+  {
     accessorKey: 'category',
-    header: 'Category',
+    header: 'Categoria',
     meta: center
   },
   {
     accessorKey: 'payment',
-    header: 'Payment',
+    header: 'Forma de Pagamento',
     meta: center
   },
   {
     accessorKey: 'current_installment',
-    header: 'Installment',
+    header: 'Parcelas',
     meta: center,
     cell: ({ row }) =>
       `${row.original.current_installment}-${row.original.total_installment}`
   },
   {
     accessorKey: 'amount',
-    header: 'Amount',
+    header: 'Valor',
     meta: {
       class: {
         th: 'text-center',
@@ -64,73 +89,23 @@ const columns: TableColumn<Transaction>[] = [
       }).format(amount)
     }
   },
-  {
-    accessorKey: 'status',
-    header: 'Status',
-    meta: center,
-    cell: ({ row }) => {
-      const color = {
-        pending: 'warning',
-        paid: 'success',
-        failed: 'error'
-      }[row.getValue('status') as string]
-
-      return h(
-        UBadge,
-        { color, variant: 'subtle', class: 'capitalize' },
-        () => row.getValue('status')
-      )
-    }
-  }
 ]
 </script>
 
 <template>
   <div class="flex flex-col w-full px-4 h-screen">
 
-    <!-- TOPO -->
-    <div class="flex items-center justify-right gap-3 px-4 py-3.5 border-b border-accented shrink-0">
-      <UInput
-        v-model="globalFilter"
-        class="max-w-sm w-full"
-        placeholder="Search all fields..."
-        icon="i-lucide-search"
-      />
+    
+    <TableFilters
+  v-model:filter="globalFilter"
+/>
 
-      <YearSelected/>
-      <MonthSelected/>
-      <UDropdownMenu
-        :items="
-          table?.tableApi
-            ?.getAllColumns()
-            .filter((column) => column.getCanHide())
-            .map((column) => ({
-              label: upperFirst(column.id),
-              type: 'checkbox' as const,
-              checked: column.getIsVisible(),
-              onUpdateChecked(checked: boolean) {
-                table?.tableApi
-                  ?.getColumn(column.id)
-                  ?.toggleVisibility(!!checked)
-              },
-              onSelect(e: Event) {
-                e.preventDefault()
-              }
-            }))"
-          :content="{ align: 'end' }">
-        <UButton
-          label="Columns"
-          color="neutral"
-          variant="outline"
-          trailing-icon="i-lucide-chevron-down"
-        />
-      </UDropdownMenu>
-    </div>
+
     <div class="h-[76vh] overflow-y-auto">
       <UTable
       ref="table"
       v-model:global-filter="globalFilter"
-      :data="data"
+      :data="ListOutputs"
       :columns="columns"
       class="text-center h-[76vh]"
       sticky

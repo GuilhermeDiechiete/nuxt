@@ -1,5 +1,9 @@
 <script setup lang="ts">
-
+onMounted(() => {
+  const globalStore = useGlobalStore()
+  globalStore.initResponsive()
+  globalStore.initDate()
+})
 </script>
 
 <template>

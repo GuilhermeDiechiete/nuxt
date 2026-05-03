@@ -1,51 +1,47 @@
 import { defineStore } from 'pinia'
 import { today , getLocalTimeZone } from '@internationalized/date'
+import { useMediaQuery } from '@vueuse/core'
+
 
 
 export const useGlobalStore = defineStore('global', {
   state: () => ({
 
-    // criar variavel que identifica se a tela é desktop ou mobile
-
-    // Controle de navegação do Dashboard
+    isMobile: false,
     navegation: ref('outputs'),
+    year: 0,
+    month: 0,
     
     // Variaveis para receber mensagem do Backend
     msg_error: '',
     msg_success: '',
-
- 
-
-    // Data, valores utilizados nos selects
-    YearSelected: 0,
-    MonthSelected: 0,
-    DaySelected: 0,
     
-    ListOutputs: [],
-    ListInputs: [],
-    TotalOutputs_month: 0,
-    TotalInputs_month:0,
-    TotalOutputs_year: 0,
-    TotalInputs_year: 0
+
 
   }),
 
   actions: {
 
+    initResponsive() {
+      const media = window.matchMedia('(max-width: 768px)')
+      const update = () => { this.isMobile = media.matches }
+      update()
+      media.addEventListener('change', update)
+    },
     // Monitoramento de Datas para toda aplicação
     initDate() {
       const now = today(getLocalTimeZone())
 
-      this.YearSelected = now.year
-      this.MonthSelected = now.month
+      this.year = now.year
+      this.month = now.month
     },
 
     setYear(year: number) {
-      this.YearSelected = year
+      this.year = year
     },
 
     setMonth(month: number) {
-      this.MonthSelected = month
+      this.month = month
     }
   }
 })

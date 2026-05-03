@@ -5,9 +5,16 @@ import { userSchema, type UserSchema } from '~/validators/user.schema'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 const userStore = useUserStore()
+// RadioGroup
+const items = [
+  { label: 'Pessoa Física', value: 'PF' },
+  { label: 'Pessoa Jurídica', value: 'PJ' }
+]
 
 // State tipado
 const form = reactive<UserSchema>({
+  client_type: 'PF',
+  document: '',
   fullname: '',
   username: '',
   birth: '',
@@ -49,6 +56,14 @@ watch(
         class="space-y-4"
         @submit="submit"
       >
+
+        <UFormField label="" name="clientType">
+          <URadioGroup v-model="form.client_type" :items="items" />
+        </UFormField>
+
+        <UFormField label="Documento: CPF/CNPJ" name="document">
+          <UInput v-model="form.document" class="w-full" />
+        </UFormField>
 
         <UFormField label="Nome completo" name="fullname">
           <UInput v-model="form.fullname" class="w-full" />

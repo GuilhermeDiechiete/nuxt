@@ -4,7 +4,7 @@ import type { ButtonProps } from '@nuxt/ui'
 const links = ref<ButtonProps[]>([
   {
     label: 'Login',
-    to: '//session/login',
+    to: '/session/login',
     icon: 'i-lucide-square-play'
   },
   {

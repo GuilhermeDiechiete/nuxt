@@ -4,17 +4,6 @@ import { useGlobalStore } from '#imports'
 
 const globalStore = useGlobalStore()
 
-const topItems: NavigationMenuItem[] = [
-  {
-    label: 'Support',
-    icon: 'i-lucide-message-circle'
-  },
-  {
-    label: 'Profile',
-    icon: 'i-lucide-user'
-  }
-]
-
 const bottomItems = computed<NavigationMenuItem[]>(() => [
   {
     label: 'Reports',
@@ -39,30 +28,23 @@ const bottomItems = computed<NavigationMenuItem[]>(() => [
     icon: 'i-lucide-trending-up',
     active: globalStore.navegation === 'investments',
     onClick: () => (globalStore.navegation = 'investments')
+  },
+  {
+    
   }
+
 ])
 </script>
 
 <template>
-  <div class="pt-16">
-    <!-- TOP HEADER -->
-    <div class="fixed top-0 left-0 right-0 z-50">
-      <UNavigationMenu
-        :items="topItems"
-        :ui="{
-          root: 'justify-around border-b border-default py-2 min-h-16',
-          item: 'py-0',
-          link: 'flex-col gap-1 px-3',
-          linkLeadingIcon: 'size-5',
-          linkLabel: 'text-[10px]/3 font-normal'
-        }"
-        class="w-full"
-      />
-    </div>
+  <div class="pb-16">
 
     <!-- BOTTOM MENU -->
-    <div class="fixed bottom-0 left-0 right-0 z-50">
-      <UNavigationMenu
+    <div class="fixed top-0 left-0 right-0 z-50">
+      
+      <div class="flex items-center justify-between border-b border-default min-h-16 px-2 bg-default">
+        <MenuMobile/>
+       <UNavigationMenu
         :items="bottomItems"
         :ui="{
           root: 'justify-around border-t border-default py-2 min-h-16',
@@ -73,6 +55,8 @@ const bottomItems = computed<NavigationMenuItem[]>(() => [
         }"
         class="w-full"
       />
+       </div>
+     
     </div>
   </div>
 </template>

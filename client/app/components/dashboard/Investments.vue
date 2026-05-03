@@ -295,8 +295,7 @@ const globalFilter = ref('')
         icon="i-lucide-search"
       />
 
-      <YearSelected/>
-      <MonthSelected/>
+      <DashboardFilters/>
       <UDropdownMenu
         :items="
           table?.tableApi

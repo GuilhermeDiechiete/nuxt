@@ -44,29 +44,25 @@ const bottomItems = computed<NavigationMenuItem[]>(() => [
 </script>
 
 <template>
-  <div class="pt-16">
+  <div class="pb-16">
 
     <!-- TOP MENU -->
     <div class="fixed top-0 left-0 right-0 z-50">
-      <div class="flex items-center justify-between border-b border-default py-2 min-h-16 px-2 bg-default">
+      
+      <div class="flex items-center justify-between border-b border-default min-h-16 px-2 bg-default">
+      
+       
+
       <UNavigationMenu
         :items="bottomItems"
         :ui="{
-          root: 'justify-around border-b border-default py-2 min-h-16',
+          root: 'justify-around border-b border-default min-h-16',
           item: 'py-0',
-          linkLabel: 'text-[10px]/3 font-normal'
         }"
         class="w-full"
       />
-
-      <UNavigationMenu
-          :items="Items"
-          :ui="{
-          root: 'justify-around border-b border-default py-2 min-h-16',
-          item: 'py-0',
-          linkLabel: 'text-[10px]/3 font-normal',
-          }"
-        />
+        <MenuDesktop/>
+   
       </div>
 
     </div>

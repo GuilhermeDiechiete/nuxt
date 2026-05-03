@@ -1,6 +1,9 @@
 <script setup lang="ts">
-const items = ref(['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maaio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'])
-const value = ref('Abril')
+import { useGlobalStore } from '#imports';
+const globalStore = useGlobalStore()
+
+const items = ref(['2026', '2027', '2028', '2029', '2030'])
+const value = ref(globalStore.year)
 </script>
 
 <template>
@@ -12,6 +15,6 @@ const value = ref('Abril')
       sideOffset: 8
     }"
     :items="items"
-    class="w-48"
+    class="min-w-24"
   />
 </template>
