@@ -33,7 +33,7 @@ const filter = defineModel<string>('filter', { default: '' })
       <MonthSelected />
       <CategoryForm/>
       <PaymentsForm/>
-      <SuppliersForm v-if="clientType === 'pj'"/>
+      <SupplierForm />
       <TransactionForm/>
 
     </div>

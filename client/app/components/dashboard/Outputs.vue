@@ -9,15 +9,21 @@ import ModalDelete from '../ModalDelete.vue'
 const UButton = resolveComponent('UButton')
 
 const transactionStore = useTransactionStore()
-
+const globalStore = useGlobalStore()
 const { ListOutputs } = storeToRefs(transactionStore)
 
-const UBadge = resolveComponent('UBadge')
 const globalFilter = ref('')
 
 onMounted(async () => {
   await transactionStore.fetchTransaction()
 })
+// 🔥 reage a mudanças
+watch(
+  () => [globalStore.year, globalStore.month],
+  async () => {
+    await transactionStore.fetchTransaction()
+  }
+)
 
 const center = {
   class: {
@@ -69,11 +75,14 @@ const columns: TableColumn<Transaction>[] = [
     meta: center
   },
   {
-    accessorKey: 'current_installment',
-    header: 'Parcelas',
+    accessorKey: 'currentInstallment',
+    header: 'Parc. Atual',
+    meta: center
+  },
+  {
+    accessorKey: 'totalInstallment',
+    header: 'Total Parc.',
     meta: center,
-    cell: ({ row }) =>
-      `${row.original.current_installment}-${row.original.total_installment}`
   },
   {
     accessorKey: 'amount',
@@ -108,9 +117,7 @@ const columns: TableColumn<Transaction>[] = [
   <div class="flex flex-col w-full px-4 h-screen">
 
     
-    <TableFilters
-  v-model:filter="globalFilter"
-/>
+    <Hub v-model:filter="globalFilter"/>
 
 
     <div class="h-[76vh] overflow-y-auto">

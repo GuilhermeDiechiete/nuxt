@@ -43,6 +43,9 @@ const columns: TableColumn<Category>[] = [
 
 
 <template>
-    <UTable :data="data" :columns="columns" class="flex-1 h-[70vh] overflow-y-auto" :ui="{
-  thead: 'sticky top-0 z-10'}"/>
+    <UTable sticky
+    :data="data" 
+    :columns="columns" 
+    class="flex-1 h-[60vh] overflow-y-auto mt-4" />
+    
 </template>

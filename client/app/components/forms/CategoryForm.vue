@@ -25,7 +25,7 @@ async function submit(event: FormSubmitEvent<CategorySchema>) {
 </script>
 
 <template>
-  <USlideover  side="left" :transition="true" title="Adicionar Categoria">
+  <USlideover  side="right" :transition="true" title="Adicionar Categoria">
     <UButton label="Categorias" color="neutral" variant="outline" @click="fetch"/>
 
     <template #body>

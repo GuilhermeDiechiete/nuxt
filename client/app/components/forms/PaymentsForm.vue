@@ -29,7 +29,7 @@ async function submit(event: FormSubmitEvent<PaymentSchema>) {
 
 </script>
 <template>
-  <USlideover  side="left" :transition="true" title="Adicionar Forma de Pagamento">
+  <USlideover  side="right" :transition="true" title="Adicionar Forma de Pagamento">
     <UButton label="Formas de pagamento" color="neutral" variant="outline" @click="fetch"/>
    
     <template #body>

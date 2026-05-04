@@ -12,7 +12,7 @@ state: () => ({
  
 
   actions: {
-    // CRIAR CATEGORIA
+    // CRIAR TRANSAÇÃO
     async create(payload: Transaction) {
 
       const globalStore = useGlobalStore()
@@ -36,7 +36,7 @@ state: () => ({
       }
     },
 
-    // BUSCAR CATEGORIAS - (Inputs, outputs, investments)
+    // BUSCAR TRANSAÇÕES
     async fetchTransaction() {
       const globalStore = useGlobalStore()
       const sessionStore = useSessionStore()
@@ -51,6 +51,10 @@ state: () => ({
           method: 'GET',
           headers: {
             Authorization: `${sessionStore.token}`
+          },
+          params: {
+            year: globalStore.year,
+            month: globalStore.month
           }
         })
 

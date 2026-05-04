@@ -1,12 +1,23 @@
 <script setup lang="ts">
 import { h, resolveComponent } from 'vue'
 import type { TableColumn } from '@nuxt/ui'
-import { transactionsMock } from '~/api/mocks/transaction'
+import { onMounted } from 'vue'
 import type { Transaction } from '~/interfaces/Transaction'
+import { useTransactionStore } from '#imports'
+import ModalDelete from '../ModalDelete.vue'
 
-const data = ref(transactionsMock) // vem os dados do Banco de dados
+const UButton = resolveComponent('UButton')
+
+const transactionStore = useTransactionStore()
+
+const { ListInputs } = storeToRefs(transactionStore)
+
 const UBadge = resolveComponent('UBadge')
 const globalFilter = ref('')
+
+onMounted(async () => {
+  await transactionStore.fetchTransaction()
+})
 
 const center = {
   class: {
@@ -20,19 +31,16 @@ const columns: TableColumn<Transaction>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
-    meta: center,
     cell: ({ row }) => {
-      const color = {
-        pending: 'warning',
-        paid: 'success',
-        failed: 'error'
-      }[row.getValue('status') as string]
+      const status = row.getValue('status') as 'paid' | 'pending'
 
-      return h(
-        UBadge,
-        { color, variant: 'subtle', class: 'capitalize' },
-        () => row.getValue('status')
-      )
+      return h(UButton, {
+        color: status === 'paid' ? 'success' : 'warning',
+        variant: 'soft',
+        label: status === 'paid' ? 'Pago' : 'Pendente',
+        onClick: () =>
+          transactionStore.toggleStatus(Number(row.original.id))
+      })
     }
   },
 
@@ -43,8 +51,11 @@ const columns: TableColumn<Transaction>[] = [
   },
   {
     accessorKey: 'date',
-    header: 'Venc.',
-    meta: center
+    header: 'Vencimento',
+    cell: ({ row }) => {
+      const date = row.getValue('date') as string
+      return date.split('-').reverse().join('-')
+    }
   },
 
   {
@@ -82,6 +93,14 @@ const columns: TableColumn<Transaction>[] = [
       }).format(amount)
     }
   },
+  {
+    id: 'delete',
+    header: 'Excluir',
+    cell: ({ row }) =>
+      h(ModalDelete, {
+        id: Number(row.original.id)
+      })
+  },
 ]
 </script>
 
@@ -89,16 +108,14 @@ const columns: TableColumn<Transaction>[] = [
   <div class="flex flex-col w-full px-4 h-screen">
 
     
-    <TableFilters
-  v-model:filter="globalFilter"
-/>
+   <Hub v-model:filter="globalFilter"/>
 
 
     <div class="h-[76vh] overflow-y-auto">
       <UTable
       ref="table"
       v-model:global-filter="globalFilter"
-      :data="data"
+      :data="ListInputs"
       :columns="columns"
       class="text-center h-[76vh]"
       sticky

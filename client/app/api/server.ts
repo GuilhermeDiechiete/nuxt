@@ -6,6 +6,7 @@ export const api = {
         sessions: `${url}/sessions`,
         categories: `${url}/categories`,
         payments: `${url}/payments`,
+        suppliers: `${url}/suppliers`,
         transactions: `${url}/transactions`,
         investments: `${url}/investments`,
         reports: `${url}/reports`

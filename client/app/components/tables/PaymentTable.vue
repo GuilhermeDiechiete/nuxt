@@ -26,6 +26,13 @@ const data = computed<Payment[]>(() => {
 
 const columns: TableColumn<Payment>[] = [
   {
+    accessorKey: 'group',
+    header: 'Grupo',
+    cell: ({ row }) => {
+     return row.getValue('group') ? 'Sim' : 'Não'
+  }
+  },
+  {
     accessorKey: 'name',
     header: 'Nome'
   },
@@ -45,6 +52,8 @@ const columns: TableColumn<Payment>[] = [
 
 
 <template>
-    <UTable :data="data" :columns="columns" class="flex-1 h-[70vh] overflow-y-auto" :ui="{
-  thead: 'sticky top-0 z-10'}"/>
+    <UTable sticky 
+    :data="data" 
+    :columns="columns" 
+    class="flex-1 h-[60vh] overflow-y-auto mt-4" />
 </template>

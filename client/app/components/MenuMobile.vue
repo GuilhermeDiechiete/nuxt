@@ -23,7 +23,7 @@
       <PaymentsForm class="w-full justify-center"/>
     </div>
     <div class="my-2">
-      <SuppliersForm class="w-full justify-center"/>
+      <SupplierForm class="w-full justify-center"/>
     </div>
   </div>
 

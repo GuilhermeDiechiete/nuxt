@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { useGlobalStore } from '#imports'
+const globalStore = useGlobalStore()
 onMounted(() => {
-  const globalStore = useGlobalStore()
+  
   globalStore.initResponsive()
   globalStore.initDate()
 })
+ globalStore.initDate()
 </script>
 
 <template>
