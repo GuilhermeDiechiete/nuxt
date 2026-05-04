@@ -3,6 +3,7 @@
 </script>
 
 <template>
+  <Hub/>
   <UCard>
     <GridReport/>
      <ReportsCategory/>

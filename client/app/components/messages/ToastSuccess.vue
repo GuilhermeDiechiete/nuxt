@@ -12,7 +12,7 @@ watch(
       toast.add({
         title: message,
         color: 'success',
-        'duration': 3000,
+        'duration': 2000,
       })
 
       // limpa a mensagem depois de exibir
