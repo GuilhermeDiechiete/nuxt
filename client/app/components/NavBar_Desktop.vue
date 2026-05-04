@@ -51,7 +51,7 @@ const bottomItems = computed<NavigationMenuItem[]>(() => [
       
       <div class="flex items-center justify-between border-b border-default min-h-16 px-2 bg-default">
       
-       
+       <img src="/favicon.ico" alt="Logo" class="h-14 w-auto" />
 
       <UNavigationMenu
         :items="bottomItems"

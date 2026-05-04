@@ -119,6 +119,10 @@ const columns: TableColumn<Transaction>[] = [
       :columns="columns"
       class="text-center h-[76vh]"
       sticky
+      :ui="{
+        td: 'py-2',
+        th: 'py-3'
+      }"
     />
     </div>
 

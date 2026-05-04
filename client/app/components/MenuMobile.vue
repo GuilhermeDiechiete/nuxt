@@ -8,6 +8,7 @@
   <!-- TOPO -->
   <div>
     <div class="my-2">
+      
       <UButton to="/user/edit" class="w-full justify-center" variant="soft">
         Perfil
       </UButton>

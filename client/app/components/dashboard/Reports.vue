@@ -6,8 +6,12 @@
   <Hub/>
   <UCard>
     <GridReport/>
-     <ReportsCategory/>
-    <SuppliersGrid/>
+     
+    <UPageGrid class="gap-4 mt-4">
+      <SummaryCategory/>
+      <SummarySupplier/>
+      <SummaryPayment/>
+    </UPageGrid>
 </UCard>
 </template>
 

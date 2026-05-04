@@ -5,6 +5,7 @@ import { onMounted } from 'vue'
 import type { Transaction } from '~/interfaces/Transaction'
 import { useTransactionStore } from '#imports'
 import ModalDelete from '../ModalDelete.vue'
+import type { TableMeta, Row } from '@tanstack/vue-table'
 
 const UButton = resolveComponent('UButton')
 
@@ -29,6 +30,31 @@ const center = {
   class: {
     th: 'text-center',
     td: 'text-center'
+  }
+}
+
+const meta: TableMeta<Transaction> = {
+  class: {
+    tr: (row: Row<Transaction>) => {
+      const transaction = row.original
+
+      if (transaction.status !== 'pending') return ''
+
+      const today = new Date()
+
+      // data da transação (YYYY-MM-DD)
+      const dueDate = new Date(transaction.date)
+
+      // diferença em dias
+      const diffTime = dueDate.getTime() - today.getTime()
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+      if (diffDays <= 3 && diffDays >= 0) {
+        return 'bg-error/15 border-l-4'
+      }
+
+      return ''
+    }
   }
 }
 
@@ -126,8 +152,13 @@ const columns: TableColumn<Transaction>[] = [
       v-model:global-filter="globalFilter"
       :data="ListOutputs"
       :columns="columns"
+      :meta="meta"
       class="text-center h-[76vh]"
       sticky
+        :ui="{
+    td: 'py-2',
+    th: 'py-3'
+  }"
     />
     </div>
 

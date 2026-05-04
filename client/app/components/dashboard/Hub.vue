@@ -23,9 +23,10 @@ const filter = defineModel<string>('filter', { default: '' })
 
   <!--HUB MOBILE-->
   <div v-if="globalStore.isMobile">
-    <div class="flex items-center gap-3 py-3.5 ">
+    <div class="flex items-center gap-3 py-3.5 px-4">
       <YearSelected class="w-full"/>
       <MonthSelected class="w-full"/>
+      <SummaryOption/>
     </div>
         <FilterTable v-model="filter" class="w-full mb-4" v-if="globalStore.navegation !== 'reports'"/>
         <TransactionForm class="w-full justify-center mb-4" v-if="globalStore.navegation !== 'reports'"/>
@@ -40,6 +41,7 @@ const filter = defineModel<string>('filter', { default: '' })
     <div class="flex items-center gap-3 px-4 py-3.5 border-b border-accented" v-if="globalStore.navegation === 'reports'">
       <YearSelected />
       <MonthSelected />
+      <SummaryOption/>
     </div>
 
     <!--DeshBoard Saídas-->

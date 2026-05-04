@@ -3,12 +3,12 @@ import type { ButtonProps } from '@nuxt/ui'
 
 const links = ref<ButtonProps[]>([
   {
-    label: 'Login',
+    label: 'Entrar',
     to: '/session/login',
-    icon: 'i-lucide-square-play'
+    icon: 'i-lucide-log-in'
   },
   {
-    label: 'Cadastre-se',
+    label: 'Criar conta',
     to: '/user/register',
     color: 'neutral',
     variant: 'subtle',
@@ -18,38 +18,49 @@ const links = ref<ButtonProps[]>([
 
 const cards = ref([
   {
-    title: 'Entradas',
-    description: 'Registre e acompanhe todas as receitas, como salários, vendas e rendimentos recebidos.',
-    icon: 'i-lucide-arrow-down-circle',
-    to: '/entries'
+    title: 'Receitas',
+    description: 'Lançamento de rendas, adicione suas categorias e contas.',
+    icon: 'i-lucide-smile',
+    to: '/docs/getting-started/integrations/icons'
   },
   {
-    title: 'Saídas',
-    description: 'Controle seus gastos diários, despesas fixas e variáveis para manter sua organização financeira.',
-    icon: 'i-lucide-arrow-up-circle',
-    to: '/expenses'
+    title: 'Despesas',
+    description: 'Lançamento de despesas, com categoria, forma de pagamento, dia de vencimento.',
+    icon: 'i-lucide-a-large-small',
+    to: '/docs/getting-started/integrations/fonts'
   },
   {
     title: 'Investimentos',
-    description: 'Acompanhe a evolução do seu patrimônio com aportes e rendimentos ao longo do tempo.',
-    icon: 'i-lucide-trending-up',
-    to: '/investments'
+    description: 'Organize seus aportes, acompanhe a rentabilidade de seus investimentos.',
+    icon: 'i-lucide-sun-moon',
+    to: '/docs/getting-started/integrations/color-mode'
   }
 ])
 </script>
 
 <template>
-  <UCard>
-      <UPageHero
-        title="TCF"
-        :ui="{ title: 'text-orange-500' }"
-        description="Gerencie suas receitas, despesas e investimentos de forma organizada e prática."
-        :links="links"
-      />
-
-    <UPageGrid>
-      <UPageCard v-for="(card, index) in cards" :key="index" v-bind="card" />
-    </UPageGrid>
-  </UCard>
+  <UPageCTA
+    title="Controle total da sua vida financeira"
+    description="Gerencie entradas, saídas e investimentos em um só lugar, de forma simples e eficiente."
+    orientation="horizontal"
+    reverse
+    :links="links"
+  >
+    <img
+      src="/beemain.png"
+      alt="Bee Finance"
+      class="md:w-52 lg:w-64 object-contain mx-auto"
+      loading="lazy"
+    />
+  </UPageCTA>
+    <UPageGrid class="gap-4 m-4">
+    <UPageCard
+      v-for="(card, index) in cards"
+      :key="index"
+      v-bind="card"
+      class=""
+    />
+  </UPageGrid>
 </template>
+
 
