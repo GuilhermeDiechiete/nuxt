@@ -1,7 +1,7 @@
 ✅ Criar o favicon.
 ❌ Adicionar logo em menu 
 ❌ Ajustar o foco no input em formulários após criação 
-❌ Adicionar opção de fornecedor em outputs 
+❌ Adicionar opção de fornecedor na tabela de outputs 
 ❌ Reports - arrumar categorias e fornecedores
 ❌ Ajustar componentes conforme tipo de usuário PF/PJ
 ❌ Organizar componentes, pastas...
@@ -10,3 +10,9 @@
 ❌ Separar tabelas de imputs e outputs 
 ❌ Limpar código 
 ❌ criar validação de email via código 
+❌ Criar check Box para confirmar política de privacidade (true/false and timestemp)
+❌ Criar uma tabela separada para aceite de privacidade, com versão do app, caso precise alterar os termos, pode saber qual versão foi 
+❌ Criar página de resumo de categorias
+❌ Criar página de resumo de fornecedores
+❌ Criar página de resumo de pagamentos 
+❌ Criar sistema de monitoramento de acessos, tem ferramentas prontas, ou criar uma tabela, onde salva o acesso e timestemp. com Onmonted.
