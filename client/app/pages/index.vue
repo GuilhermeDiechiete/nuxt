@@ -40,7 +40,7 @@ const cards = ref([
 
 <template>
   <UPageCTA
-    title="Controle total da sua vida financeira"
+    title="BeeFinance"
     description="Gerencie entradas, saídas e investimentos em um só lugar, de forma simples e eficiente."
     orientation="horizontal"
     reverse

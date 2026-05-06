@@ -8,6 +8,13 @@ export const useTransactionStore = defineStore('transaction', {
 state: () => ({
   ListInputs: [] as Transaction[],
   ListOutputs: [] as Transaction[],
+
+  TotalInputs: {} as Record<number, number>,
+  TotalOutputs: {} as Record<number, number>,
+
+  TotalInputsSum: 0,
+  TotalOutputsSum: 0,
+  TotalBalance: 0,
 }),
  
 
@@ -36,15 +43,15 @@ state: () => ({
       }
     },
 
-    // BUSCAR TRANSAÇÕES
+    // Buscar transações filtrando ano e mês, para preencher as tabelas de acompanhamento de Inputs and Outputs.
     async fetchTransaction() {
       const globalStore = useGlobalStore()
       const sessionStore = useSessionStore()
 
       try {
         const res = await $fetch<{ 
-          inputs: any[], 
-          outputs: any[], 
+          inputs: [], 
+          outputs: [], 
           message: string
 
         }>(api.routes.transactions, {
@@ -60,6 +67,53 @@ state: () => ({
 
         this.ListInputs = res.inputs
         this.ListOutputs = res.outputs
+
+        globalStore.msg_success = res.message
+        return true
+
+      } catch (error: any) {
+        globalStore.msg_error = error?.data?.message || error?.message || 'Erro inesperado'
+        return false
+      }
+    },
+
+    // Busca uma lista dos valores totais de cada mês e ano, recebe um array com 12 meses mais a soma total dos 12 meses
+    async fetchTotalTransactions() {
+      const globalStore = useGlobalStore()
+      const sessionStore = useSessionStore()
+
+      try {
+        const res = await $fetch<{
+          inputs: {
+            byMonth: Record<number, number>
+            total: number
+          },
+          outputs: {
+            byMonth: Record<number, number>
+            total: number
+          },
+          balance: {
+            total: number
+          },
+          message: string
+        }>(
+          `${api.routes.transactions}/total`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `${sessionStore.token}`
+            },
+            params: {
+              year: globalStore.year
+            }
+          }
+        )
+
+        this.TotalInputs = res.inputs.byMonth
+        this.TotalOutputs = res.outputs.byMonth
+        this.TotalInputsSum = res.inputs.total
+        this.TotalOutputsSum = res.outputs.total
+        this.TotalBalance = res.balance.total
 
         globalStore.msg_success = res.message
         return true

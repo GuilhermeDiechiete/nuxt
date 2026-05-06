@@ -11,7 +11,7 @@ export const useGlobalStore = defineStore('global', {
     navegation: ref('outputs'),
     year: 0,
     month: 0,
-    
+    summaryOption: ref('month'),
     // Variaveis para receber mensagem do Backend
     msg_error: '',
     msg_success: '',

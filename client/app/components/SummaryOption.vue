@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const option = ref<'month' | 'year'>('month')
+import { useGlobalStore } from '#imports'
+
+const globalStore = useGlobalStore()
 
 const options = [
   { label: 'Mês', value: 'month' },
@@ -10,7 +12,7 @@ const options = [
 <template>
   <div>
     <USelect
-      v-model="option"
+      v-model="globalStore.summaryOption"
       :items="options"
     />
   </div>

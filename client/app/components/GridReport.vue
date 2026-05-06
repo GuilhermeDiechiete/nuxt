@@ -1,24 +1,41 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted, watch } from 'vue'
+import { useTransactionStore, useGlobalStore } from '#imports'
+
+const transactionStore = useTransactionStore()
+const globalStore = useGlobalStore()
 
 /**
- * Estado principal (resumo financeiro)
+ * Resumo dinâmico (mês ou ano)
  */
-const summary = ref({
-  inputs: 0,
-  outputs: 0,
-  investments: 0
+const summary = computed(() => {
+  const month = Number(globalStore.month)
+  const option = globalStore.summaryOption
+
+  return {
+    inputs:
+      option === 'year'
+        ? transactionStore.TotalInputsSum
+        : transactionStore.TotalInputs[month] || 0,
+
+    outputs:
+      option === 'year'
+        ? transactionStore.TotalOutputsSum
+        : transactionStore.TotalOutputs[month] || 0,
+
+    investments: 0 // se adicionar depois, segue o mesmo padrão
+  }
 })
 
 /**
- * Saldo (calculado automaticamente)
+ * Saldo
  */
 const balance = computed(() => {
   return summary.value.inputs - summary.value.outputs - summary.value.investments
 })
 
 /**
- * Formatação de moeda (BRL)
+ * Formatação moeda
  */
 function formatCurrency(value: number) {
   return new Intl.NumberFormat('pt-BR', {
@@ -28,18 +45,20 @@ function formatCurrency(value: number) {
 }
 
 /**
- * Cards dinâmicos
+ * Cards
  */
 const cards = computed(() => [
   {
     title: formatCurrency(summary.value.inputs),
-    description: 'Entradas',
+    description:
+      globalStore.summaryOption === 'year' ? 'Entradas (Ano)' : 'Entradas',
     icon: 'i-lucide-trending-up',
     ui: 'bg-primary-50 dark:bg-primary-700/20'
   },
   {
     title: formatCurrency(summary.value.outputs),
-    description: 'Despesas',
+    description:
+      globalStore.summaryOption === 'year' ? 'Despesas (Ano)' : 'Despesas',
     icon: 'i-lucide-trending-down',
     ui: 'bg-red-50 dark:bg-red-700/20'
   },
@@ -51,36 +70,29 @@ const cards = computed(() => [
   },
   {
     title: formatCurrency(balance.value),
-    description: 'Saldo',
+    description:
+      globalStore.summaryOption === 'year' ? 'Saldo (Ano)' : 'Saldo',
     icon: 'i-lucide-wallet',
     ui: 'bg-green-50 dark:bg-green-700/20'
   }
 ])
 
 /**
- * Simulação de API (substituir pela sua)
- */
-async function fetchResumo() {
-  // aqui você chama seu backend
-  return {
-    inputs: 4500,
-    outputs: 3000,
-    investments: 800
-  }
-}
-
-/**
- * Carregar dados ao abrir a página
+ * Carregar dados
  */
 onMounted(async () => {
-  const data = await fetchResumo()
-
-  summary.value = {
-    inputs: data.inputs,
-    outputs: data.outputs,
-    investments: data.investments
-  }
+  await transactionStore.fetchTotalTransactions()
 })
+
+/**
+ * Atualizar quando mudar mês/ano/opção
+ */
+watch(
+  () => [globalStore.month, globalStore.year, globalStore.summaryOption],
+  async () => {
+    await transactionStore.fetchTotalTransactions()
+  }
+)
 </script>
 
 <template>

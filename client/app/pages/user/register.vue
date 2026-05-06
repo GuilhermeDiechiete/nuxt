@@ -10,6 +10,7 @@ const items = [
   { label: 'Pessoa Física', value: 'PF' },
   { label: 'Pessoa Jurídica', value: 'PJ' }
 ]
+const acceptedPolicy = ref(false)
 
 // State tipado
 const form = reactive<UserSchema>({
@@ -94,7 +95,9 @@ watch(
           <UInput v-model="form.confirm_password" type="password" class="w-full" />
         </UFormField>
 
-        <UButton type="submit" block>
+        <PrivacyPolicy v-model="acceptedPolicy" />
+
+        <UButton type="submit" block :disabled="!acceptedPolicy">
           Cadastrar
         </UButton>
 
