@@ -64,7 +64,7 @@ const summary = {
           </span>
         </div>
 
-        <UButton class="justify-center" color="primary" variant="soft">Resumo Completo</UButton>
+        <UButton to="/reports/categories" class="justify-center" color="primary" variant="soft">Resumo Completo</UButton>
       </div>
     </UPageCard>
 </template>

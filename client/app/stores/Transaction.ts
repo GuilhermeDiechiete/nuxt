@@ -3,6 +3,28 @@ import { api } from '~/api/server' // arquivo de config de acesso ao backend
 import { useGlobalStore, useSessionStore } from '#imports' // UserStore vai enviar mensagem para GlobalStore de msg de success ou error
 import type { Transaction } from '~/interfaces/Transaction'
 
+type TransactionItem = {
+  id: number
+  description: string
+  amount: number
+  date: string
+  type: string
+  category: string
+}
+
+type CategoryMonth = {
+  month: number
+  total: number
+  transactions: TransactionItem[]
+}
+
+type CategorySummary = {
+  categoryId: number
+  categoryName: string
+  months: CategoryMonth[]
+  yearTotal: number
+}
+
 export const useTransactionStore = defineStore('transaction', {
   
 state: () => ({
@@ -15,6 +37,10 @@ state: () => ({
   TotalInputsSum: 0,
   TotalOutputsSum: 0,
   TotalBalance: 0,
+
+  InputsCategories: [] as CategorySummary[],
+  OutputsCategories: [] as CategorySummary[],
+  loading: false
 }),
  
 
@@ -123,7 +149,55 @@ state: () => ({
         return false
       }
     },
-      
+
+    // Busca resumo por categoria (mensal + anual)
+// Busca resumo por categoria (mensal + anual)
+async fetchCategorySummary() {
+  const globalStore = useGlobalStore()
+  const sessionStore = useSessionStore()
+
+  this.loading = true
+
+  try {
+
+    const res = await $fetch<{
+      inputs: CategorySummary[]
+      outputs: CategorySummary[]
+      message: string
+    }>(
+      `${api.routes.transactions}/categories`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `${sessionStore.token}`
+        },
+        params: {
+          year: globalStore.year
+        }
+      }
+    )
+
+    // salva no state
+    this.InputsCategories = res.inputs
+    this.OutputsCategories = res.outputs
+
+    globalStore.msg_success = res.message
+
+    return true
+
+  } catch (error: any) {
+
+    globalStore.msg_error =
+      error?.data?.message ||
+      error?.message ||
+      'Erro inesperado'
+
+    return false
+
+  } finally {
+    this.loading = false
+  }
+},
 async toggleStatus(id: number) {
   const globalStore = useGlobalStore()
   const sessionStore = useSessionStore()
