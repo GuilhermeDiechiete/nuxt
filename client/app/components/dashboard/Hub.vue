@@ -28,8 +28,8 @@ const filter = defineModel<string>('filter', { default: '' })
       <MonthSelected class="w-full"/>
       <SummaryOption/>
     </div>
-        <FilterTable v-model="filter" class="w-full mb-4" v-if="globalStore.navegation !== 'reports'"/>
-        <TransactionForm class="w-full justify-center mb-4" v-if="globalStore.navegation !== 'reports'"/>
+        <FilterTable v-model="filter" class="w-full mb-4" v-if="globalStore.navegation !== 'summary'"/>
+        <TransactionForm class="w-full justify-center mb-4" v-if="globalStore.navegation !== 'summary'"/>
 
         <!-- No Mobile, Categorias, forma de pagamento e fornecedores, vai para o Menu -->
   </div>
@@ -38,7 +38,7 @@ const filter = defineModel<string>('filter', { default: '' })
   <div v-else>
 
     <!--DeshBoard Relatórios-->
-    <div class="flex items-center gap-3 px-4 py-3.5 border-b border-accented" v-if="globalStore.navegation === 'reports'">
+    <div class="flex items-center gap-3 px-4 py-3.5 border-b border-accented" v-if="globalStore.navegation === 'summary'">
       <YearSelected />
       <MonthSelected />
       <SummaryOption/>

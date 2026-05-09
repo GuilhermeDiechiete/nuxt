@@ -4,7 +4,7 @@ import type { TableColumn } from '@nuxt/ui'
 import { onMounted } from 'vue'
 import type { Transaction } from '~/interfaces/Transaction'
 import { useTransactionStore } from '#imports'
-import ModalDelete from '../ModalDelete.vue'
+import ModalDelete from '../tables/ModalDelete.vue'
 import type { TableMeta, Row } from '@tanstack/vue-table'
 
 const UButton = resolveComponent('UButton')

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const summary = {
   income: {
-    percent: 70,
     name: 'Salário',
     value: 2400
   },
@@ -64,7 +63,7 @@ const summary = {
           </span>
         </div>
 
-        <UButton to="/reports/categories" class="justify-center" color="primary" variant="soft">Resumo Completo</UButton>
+        <UButton to="/summary/categories" class="justify-center" color="primary" variant="soft">Resumo Completo</UButton>
       </div>
     </UPageCard>
 </template>

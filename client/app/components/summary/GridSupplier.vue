@@ -36,7 +36,7 @@ const topSuppliers = [
             }}
           </span>
         </div>
-      <UButton to="/reports/suppliers" class="justify-center" color="primary" variant="soft">Resumo Completo</UButton>
+      <UButton to="/summary/suppliers" class="justify-center" color="primary" variant="soft">Resumo Completo</UButton>
       </div>
     </UPageCard>
 </template>

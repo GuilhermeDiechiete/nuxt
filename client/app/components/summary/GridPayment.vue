@@ -45,7 +45,7 @@ const payments = [
 
       <!-- Botão -->
       <UButton
-        to="/reports/payments"
+        to="/summary/payments"
         class="justify-center"
         color="primary"
         variant="soft"

@@ -8,7 +8,7 @@ export const useGlobalStore = defineStore('global', {
   state: () => ({
 
     isMobile: false,
-    navegation: ref('outputs'),
+    navegation: ref('summary'),
     year: 0,
     month: 0,
     summaryOption: ref('month'),

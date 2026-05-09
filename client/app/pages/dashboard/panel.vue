@@ -1,11 +1,5 @@
 <script setup lang="ts">
-
 import { useGlobalStore } from '#imports';
-import Reports from '~/components/dashboard/Reports.vue';
-import Investments from '~/components/dashboard/Investments.vue';
-import Inputs from '~/components/dashboard/Inputs.vue';
-import Outputs from '~/components/dashboard/Outputs.vue';
-
 const globalStore = useGlobalStore()
 
 </script>
@@ -14,8 +8,9 @@ const globalStore = useGlobalStore()
     <div>
         <NavBarMobile v-if="globalStore.isMobile" />
         <NavBarDesktop v-else />
+        
 
-        <Reports v-if="globalStore.navegation === 'reports'"/>
+        <Summary v-if="globalStore.navegation === 'summary'"/>
         <Outputs v-if="globalStore.navegation === 'outputs'"/>
         <Inputs v-if="globalStore.navegation === 'inputs'"/>
         <Investments v-if="globalStore.navegation === 'investments'"/>
