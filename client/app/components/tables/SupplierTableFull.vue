@@ -7,7 +7,7 @@ import { useSupplierStore } from '#imports'
 const UButton = resolveComponent('UButton')
 
 const supplierStore = useSupplierStore()
-const data = supplierStore.ListSuppliers
+const data = supplierStore.listSuppliers
 
 const expanded = ref({})
 

@@ -1,12 +1,18 @@
+❌ Adicionar "fornecedor" na tabela de entradas: Ex: Salario Forncedor Sicredi Vale...
+❌ Adicionar Despesas Fixa ou Variavel no formulario de despesas
+❌ Adicionar icone de informação, para o usuário entender o app
+❌ Adicionar nos headers dos formularios(categoria, payments) se é despesas ou rendas
+❌ Puxar data automatico no formulário de transações
+❌ Ajustar o direcionamento para login na pagina index.
 ✅ Criar favicon de abelha.
 ✅ Adicionar logo de abelha no menu 
-
-❌ Terminar a pagina de perfil do usuário.
-❌ Salvar o tipo de perfil no userStore para usar nos componentes.
-❌ Ajustar componentes conforme tipo de usuário PF/PJ
-❌ Adicionar fornecedor no formulário de despesas do perfil PJ
-
-❌ Reports - arrumar categorias e fornecedores
+✅ Adicionar favicon no login e register
+❌ Terminar a pagina de perfil/edição do usuário.
+✅ Salvar o tipo de perfil no userStore para usar nos componentes.
+✅ Ajustar componentes conforme tipo de usuário PF/PJ
+✅ Adicionar fornecedor no formulário de despesas do perfil PJ
+❌ Formulario de fornecedores não esta buscando a tabela depois de criar
+❌ Reports - arrumar GRID categorias e fornecedores e forma da pagamentos
 ❌ Ajustar o foco do cursor no input em formulários após criação.
 
 ❌ Organizar componentes, pastas...
@@ -21,3 +27,4 @@
 ❌ Criar página de resumo de fornecedores
 ❌ Criar página de resumo de pagamentos 
 ❌ Criar sistema de monitoramento de acessos, tem ferramentas prontas, ou criar uma tabela, onde salva o acesso e timestemp. com Onmonted.
+

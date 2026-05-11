@@ -16,6 +16,7 @@ export const useGlobalStore = defineStore('global', {
     msg_error: '',
     msg_success: '',
     
+    client_type: ''
 
 
   }),

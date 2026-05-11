@@ -24,6 +24,20 @@ const data = computed<Category[]>(() => {
 // Apresentação da Tabela
 const columns: TableColumn<Category>[] = [
   {
+    accessorKey: 'category',
+    header: 'Categoria',
+
+    cell: ({ row }) => {
+      const value = row.original.category
+
+      return value === 'fixed'
+        ? 'Fixo'
+        : value === 'variable'
+          ? 'Variável'
+          : value
+    }
+  },
+  {
     accessorKey: 'name',
     header: 'Nome'
   },

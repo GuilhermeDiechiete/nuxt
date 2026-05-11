@@ -4,7 +4,8 @@ import {
   useGlobalStore, 
   useCategoryStore, 
   useTransactionStore,
-  usePaymentStore } from '#imports'
+  usePaymentStore,
+  useSupplierStore } from '#imports'
 
 import type { FormSubmitEvent } from '@nuxt/ui'
 import { transactionSchema, type TransactionSchema } from '~/validators/transaction.schema'
@@ -13,13 +14,14 @@ const globalStore = useGlobalStore()
 const categoryStore = useCategoryStore()
 const transactionStore = useTransactionStore()
 const paymentStore = usePaymentStore()
-
+const supplierStore = useSupplierStore()
 
 const form = reactive({
   type: globalStore.navegation as 'inputs' | 'outputs',
   date: '',
   description: '',
   category: '',
+  supplier: '',
   payment: '',
   current_installment: 1,
   total_installment: 1,
@@ -60,15 +62,20 @@ const paymentOptions = computed(() =>
   }))
 )
 
-
+const supplierOptions = computed(() =>
+  supplierStore.listSuppliers.map(c => ({
+    label: c.tradeName,
+    value: c.tradeName
+  }))
+)
 
 async function fetch() {
     await categoryStore.fetchCategories()
     await paymentStore.fetchPayments()
+    await supplierStore.fetchSuppliers()
 }
 
 async function submit(event: FormSubmitEvent<TransactionSchema>) {
-  console.log('executei')
   const { id, ...dataWithoutId } = event.data as any
   const res = await transactionStore.create(dataWithoutId)
   if (res) await transactionStore.fetchTransaction()
@@ -80,6 +87,9 @@ async function submit(event: FormSubmitEvent<TransactionSchema>) {
   <USlideover  side="right" :transition="true" title="Adicionar Transação">
     <UButton label="ADICIONAR" color="success" variant="outline" @click="fetch"/>
 
+    <template #title>
+      <HeaderForm title="Adicionar Transação"/>
+    </template>
     <template #body>
       <UForm
       :schema="transactionSchema"
@@ -97,6 +107,10 @@ async function submit(event: FormSubmitEvent<TransactionSchema>) {
 
         <UFormField label="Categoria" name="category">
           <USelect v-model="form.category" :items="categoryOptions" placeholder="Selecione" class="w-full"/>
+        </UFormField>
+
+        <UFormField label="Fornecedor" name="supplier" v-if="globalStore.client_type === 'PJ'">
+          <USelect v-model="form.supplier" :items="supplierOptions" placeholder="Selecione" class="w-full"/>
         </UFormField>
 
         <UFormField label="Forma de pagamento" name="payment">

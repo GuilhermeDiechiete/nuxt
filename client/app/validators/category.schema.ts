@@ -2,14 +2,17 @@ import * as v from 'valibot'
 
 export const categorySchema = v.object({
 
-  name: v.pipe(
+  category: v.pipe(
+    v.string(),
+    v.minLength(2, 'Nome deve ter no mínimo 2 caracteres')
+  ),
+  transaction_type: v.pipe(
     v.string(),
     v.minLength(4, 'Nome deve ter no mínimo 4 caracteres')
   ),
-
-  type: v.pipe(
+  name: v.pipe(
     v.string(),
-    v.minLength(4, 'Nome deve ter no mínimo 4 caracteres')
+    v.minLength(2, 'Nome deve ter no mínimo 2 caracteres')
   ),
 })
 

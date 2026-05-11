@@ -55,6 +55,9 @@ const showFullForm = ref(false)
   <USlideover  side="right" :transition="true" title="Adicionar Fornecedor">
     <UButton label="Fornecedores" color="neutral" variant="outline" @click="fetch"/>
 
+  <template #title>
+    <HeaderForm title="Fornecedores"/>
+  </template>
     <template #body>
       <UButton label="Cadastros" class="w-full justify-center mb-4" color="warning" variant="subtle" to="/suppliers/registrations"/>
       <UForm

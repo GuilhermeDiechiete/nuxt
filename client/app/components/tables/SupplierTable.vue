@@ -9,7 +9,7 @@ const UButton = resolveComponent('UButton')
 const supplierStore = useSupplierStore()
 const globalStore = useGlobalStore()
 
-const data = supplierStore.ListSuppliers
+const data = supplierStore.listSuppliers
 
 // Apresentação da Tabela
 const columns: TableColumn<Supplier>[] = [

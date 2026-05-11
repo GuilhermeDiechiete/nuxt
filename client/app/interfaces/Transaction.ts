@@ -5,6 +5,7 @@ export interface Transaction {
   date: string
   description: string
   category: string
+  supplier: string
   payment: string
   current_installment: number
   total_installment: number
@@ -17,6 +18,7 @@ export interface CreateTransaction {
   date: string
   description: string
   category: string
+  supplier: string
   payment: string
   current_installment: number
   total_installment: number

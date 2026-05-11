@@ -17,6 +17,9 @@ export const transactionSchema = v.pipe(
     category: v.pipe(
       v.string(),
     ),
+    supplier: v.pipe(
+      v.string(),
+    ),
 
     payment: v.pipe(
       v.union([v.string(), v.number()]),

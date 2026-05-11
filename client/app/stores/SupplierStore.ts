@@ -6,7 +6,7 @@ import type { Supplier } from '~/interfaces/Supplier'
 export const useSupplierStore = defineStore('supplier', {
   
 state: () => ({
-  ListSuppliers: [] as Supplier[],
+  listSuppliers: [] as Supplier[],
  
 }),
  
@@ -50,7 +50,8 @@ state: () => ({
           }
         })
 
-        this.ListSuppliers = res.suppliers
+        this.listSuppliers = res.suppliers
+        console.log(res.suppliers)
         globalStore.msg_success = res.message
         return true
 
@@ -77,7 +78,7 @@ state: () => ({
         globalStore.msg_success = res.message
 
         // remove do array sem precisar refetch e não vem lista atualizada do DB
-        this.ListSuppliers = this.ListSuppliers.filter(c => c.id !== id)
+        this.listSuppliers = this.listSuppliers.filter(c => c.id !== id)
         return true
 
       } catch (error: any) {

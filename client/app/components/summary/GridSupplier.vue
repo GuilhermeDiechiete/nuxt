@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useGlobalStore } from '#imports';
+const globalStore = useGlobalStore()
+
 const topSuppliers = [
   { name: 'Souza Cruz', value: 4000 },
   { name: 'Mercado Livre', value: 3500 },
@@ -11,6 +14,7 @@ const topSuppliers = [
       title="Top Fornecedores"
       description="Maiores valores pagos"
       icon="i-lucide-users"
+      v-if="globalStore.client_type === 'PJ'"
     >
       <div class="flex flex-col gap-4 mt-4 text-sm">
 
