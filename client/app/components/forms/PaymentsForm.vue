@@ -10,7 +10,7 @@ const globalStore = useGlobalStore()
 
 const form = reactive({
   name: '',
-  type: globalStore.navegation,
+  transaction_type: globalStore.navegation,
   group: false,
 })
 

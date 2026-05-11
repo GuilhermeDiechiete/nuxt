@@ -1,7 +1,9 @@
 ❌ Adicionar "fornecedor" na tabela de entradas: Ex: Salario Forncedor Sicredi Vale...
-❌ Adicionar Despesas Fixa ou Variavel no formulario de despesas
+❌ Ajustar tabelas de categoria (category, name)
+❌ Ajustar suppliers no controller, tem que vim por tipo, inputs ou outputs.
+✅ Adicionar Despesas Fixa ou Variavel no formulario de despesas
 ❌ Adicionar icone de informação, para o usuário entender o app
-❌ Adicionar nos headers dos formularios(categoria, payments) se é despesas ou rendas
+✅ Adicionar nos headers dos formularios(categoria, payments) se é despesas ou rendas
 ❌ Puxar data automatico no formulário de transações
 ❌ Ajustar o direcionamento para login na pagina index.
 ✅ Criar favicon de abelha.

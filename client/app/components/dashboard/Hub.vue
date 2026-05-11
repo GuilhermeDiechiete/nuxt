@@ -65,6 +65,7 @@ const filter = defineModel<string>('filter', { default: '' })
       <MonthSelected />
       <CategoryForm />
       <PaymentsForm />
+      <SupplierForm v-if="globalStore.client_type === 'PJ'"/>
       <TransactionForm />
 
     </div>

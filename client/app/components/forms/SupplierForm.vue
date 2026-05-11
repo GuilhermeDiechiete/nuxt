@@ -53,10 +53,11 @@ const showFullForm = ref(false)
 
 <template>
   <USlideover  side="right" :transition="true" title="Adicionar Fornecedor">
-    <UButton label="Fornecedores" color="neutral" variant="outline" @click="fetch"/>
-
+    <UButton label="Fornecedores" color="neutral" variant="outline" @click="fetch" v-if="globalStore.navegation === 'outputs'"/>
+    <UButton label="Clientes" color="neutral" variant="outline" @click="fetch" v-if="globalStore.navegation === 'inputs'"/>
   <template #title>
-    <HeaderForm title="Fornecedores"/>
+    <HeaderForm title="Fornecedores - Contas a pagar" v-if="globalStore.navegation === 'outputs'"/>
+    <HeaderForm title="Clientes - Contas a Receber" v-if="globalStore.navegation === 'inputs'"/>
   </template>
     <template #body>
       <UButton label="Cadastros" class="w-full justify-center mb-4" color="warning" variant="subtle" to="/suppliers/registrations"/>

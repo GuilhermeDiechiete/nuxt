@@ -7,7 +7,7 @@ export const paymentSchema = v.object({
     v.minLength(4, 'Nome deve ter no mínimo 4 caracteres')
   ),
 
-  type: v.pipe(
+  transaction_type: v.pipe(
     v.string(),
     v.minLength(4, 'Nome deve ter no mínimo 4 caracteres')
   ),
