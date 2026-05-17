@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useReportStore, useGlobalStore } from '#imports';
+import CategoryTableOutputsSummary from '../tables/CategoryTableOutputsSummary.vue';
 
 const reportStore = useReportStore()
 const globalStore = useGlobalStore()
@@ -29,7 +30,7 @@ const formatCurrency = (value: number) => {
       <div class="flex items-center justify-between">
 
         <div class="flex items-center">
-          <p class="font-semibold text-primary mr-2"> Receitas </p>
+          <p class="text-primary mr-2"> Entradas: Receitas</p>
           <YearSelected />
         </div>
     
@@ -50,9 +51,8 @@ const formatCurrency = (value: number) => {
         </div>
       </div>
     </UCard>
-    <CategoryTableInputsFixed />
-    <CategoryTableInputsVariable />
-
+    <CategoryTableInputsSummary />
+    
     <!-- HEADER -->
     <UCard class="border border-gray-800 bg-gray-900">
       <div class="flex items-center justify-between">
@@ -80,8 +80,8 @@ const formatCurrency = (value: number) => {
       </div>
     </UCard>
 
-    <CategoryTableOutputsFixed />
-    <CategoryTableOutputsVariable/>
+    <CategoryTableOutputsSummary />
+   
 
   </div>
 

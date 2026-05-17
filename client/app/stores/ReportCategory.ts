@@ -7,18 +7,20 @@ import { useGlobalStore, useSessionStore } from '#imports'
 export const useReportStore = defineStore('report', {
 
   state: () => ({
-    totalOutputsYear: 0,
     totalInputsYear: 0,
-    
-    totalOutputsFixedYear: 0,
-    totalOutputsVariableYear: 0,
-
     totalInputsFixedYear: 0,
     totalInputsVariableYear: 0,
 
-    outputsFixedSummary: [],
-    outputsFixedMonths: [],
+    totalOutputsYear: 0,
+    totalOutputsFixedYear: 0,
+    totalOutputsVariableYear: 0,
 
+    totalOutputsByMonth: {},
+    totalInputsByMonth: {},
+
+    outputsCategoriesSummary: {},
+    inputsCategoriesSummary: {}
+  
   }),
 
   actions: {
@@ -44,15 +46,22 @@ export const useReportStore = defineStore('report', {
           }
         )
 
-        this.totalOutputsYear = res.totalOutputsYear
+        // totais
         this.totalInputsYear = res.totalInputsYear
-        this.totalOutputsFixedYear = res.totalOutputsFixedYear
-        this.totalOutputsVariableYear = res.totalOutputsVariableYear
         this.totalInputsFixedYear = res.totalInputsFixedYear
         this.totalInputsVariableYear = res.totalInputsVariableYear
 
-        this.outputsFixedSummary = res.outputsFixedSummary
-        this.outputsFixedMonths = res.outputsFixedMonths
+        this.totalOutputsYear = res.totalOutputsYear
+        this.totalOutputsFixedYear = res.totalOutputsFixedYear
+        this.totalOutputsVariableYear = res.totalOutputsVariableYear
+
+        this.totalInputsByMonth = res.inputsByMonth 
+        this.totalOutputsByMonth = res.outputsByMonth 
+
+        this.outputsCategoriesSummary = res.outputsCategoriesSummary
+        this.inputsCategoriesSummary = res.inputsCategoriesSummary
+        // verificar se esta em uso
+
         return true
 
       } catch (error: any) {
