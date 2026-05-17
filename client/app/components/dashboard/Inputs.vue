@@ -69,11 +69,14 @@ const columns: TableColumn<Transaction>[] = [
     meta: center
   },
   {
-    accessorKey: 'current_installment',
-    header: 'Parcelas',
+    accessorKey: 'currentInstallment',
+    header: 'Parc. Atual',
+    meta: center
+  },
+  {
+    accessorKey: 'totalInstallment',
+    header: 'Total Parc.',
     meta: center,
-    cell: ({ row }) =>
-      `${row.original.current_installment}-${row.original.total_installment}`
   },
   {
     accessorKey: 'amount',

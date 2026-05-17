@@ -2,7 +2,10 @@ import * as v from 'valibot'
 
 export const transactionSchema = v.pipe(
   v.object({
-    type: v.picklist(['inputs', 'outputs'], 'Tipo inválido'),
+    transaction_type: v.pipe(
+      v.string(),
+      v.minLength(4, 'Nome deve ter no mínimo 4 caracteres')
+    ),
 
     date: v.pipe(
       v.string(),
@@ -15,6 +18,9 @@ export const transactionSchema = v.pipe(
     ),
 
     category: v.pipe(
+      v.string(),
+    ),
+    category_name: v.pipe(
       v.string(),
     ),
     supplier: v.pipe(

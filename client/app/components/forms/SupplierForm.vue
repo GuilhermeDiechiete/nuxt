@@ -16,6 +16,7 @@ const items = [
 // 🧠 estado inicial
 const initialForm = {
   type: 'PF' as 'PF' | 'PJ',
+  transaction_type: globalStore.navegation,
   company_name: '',
   trade_name: '',
   document: '',
@@ -60,7 +61,14 @@ const showFullForm = ref(false)
     <HeaderForm title="Clientes - Contas a Receber" v-if="globalStore.navegation === 'inputs'"/>
   </template>
     <template #body>
-      <UButton label="Cadastros" class="w-full justify-center mb-4" color="warning" variant="subtle" to="/suppliers/registrations"/>
+      <UButton
+        type="button"
+        color="warning"
+        variant="subtle"
+        class="w-full justify-center"
+        :label="showFullForm ? 'Ocultar cadastro completo' : 'Cadastro Completo'"
+        @click="showFullForm = !showFullForm"
+      />
       <UForm
       :schema="supplierSchema"
         :state="form"

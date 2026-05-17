@@ -9,6 +9,6 @@ export const api = {
         suppliers: `${url}/suppliers`,
         transactions: `${url}/transactions`,
         investments: `${url}/investments`,
-        reports: `${url}/reports`
+        reports: `${url}/reportcategories`
     },
   }

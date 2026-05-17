@@ -1,71 +1,94 @@
 <script setup lang="ts">
-const summary = {
-  income: {
-    name: 'Salário',
-    value: 2400
-  },
-  output: {
-    name: 'Gasolina',
-    value: 600
-  },
-  investment: {
-    value: 300
+import { computed, onMounted, watch } from 'vue'
+import { useReportStore, useGlobalStore } from '#imports'
+
+const reportStore = useReportStore()
+const globalStore = useGlobalStore()
+
+onMounted(async () => {
+  await reportStore.fetchReports()
+})
+
+watch(
+  () => [
+    globalStore.month,
+    globalStore.year,
+    globalStore.summaryOption
+  ],
+
+  async () => {
+    await reportStore.fetchReports()
   }
-}
+)
+
+// SUMMARY
+const summary = computed(() => {
+  if (globalStore.summaryOption === 'year') {
+
+    return reportStore.ranking?.year || {
+      categoryName: '-',
+      total: 0
+    }
+  }
+  const currentMonth =
+    reportStore.ranking?.months?.find(
+      (month: any) =>
+        month.month === globalStore.month
+    )
+
+  return currentMonth || {
+    categoryName: '-',
+    total: 0
+  }
+})
+
+// FORMAT
+const formatCurrency = (
+  value: number
+) => {
+
+  return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value || 0)}
+
 </script>
 
 <template>
-    <UPageCard
-      title="Resumo de Categorias"
-      description="Categorias com maior movimentação"
-      icon="i-lucide-bar-chart-3"
-    >
-      <div class="flex flex-col gap-4 mt-4 text-sm">
 
-        <!-- Receita -->
-        <div class="flex justify-between items-center">
-          <span class="text-muted">Maior Receita</span>
-          <span class="font-medium text-success">
-            {{ summary.income.percent }}% • {{ summary.income.name }}:
-            {{
-              new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-              }).format(summary.income.value)
-            }}
-          </span>
-        </div>
+  <UPageCard title="Resumo de Categorias" 
+  description="Maiores movimentações por categoria"
+  icon="i-lucide-bar-chart-3">
 
-        <!-- Maior gasto -->
-        <div class="flex justify-between items-center">
-          <span class="text-muted">Maior Gasto</span>
-          <span class="font-medium text-error">
-            {{ summary.output.name }}:
-            {{
-              new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-              }).format(summary.output.value)
-            }}
-          </span>
-        </div>
-
-        <!-- Investimento -->
-        <div class="flex justify-between items-center">
-          <span class="text-muted">Maior Investimento</span>
-          <span class="font-medium text-primary">
-            {{
-              new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-              }).format(summary.investment.value)
-            }}
-          </span>
-        </div>
-
-        <UButton to="/summary/categories" class="justify-center" color="primary" variant="soft">Resumo Completo</UButton>
+    <div class="flex flex-col gap-4 mt-4 text-sm">
+      <div class="flex justify-between items-center">
+        <span class="text-muted">
+          {{
+            globalStore.summaryOption === 'year'
+              ? 'Maior Gasto (ano)'
+              : 'Maior Gasto (mês)'
+          }}
+        </span>
+        <span class="font-medium text-error">
+          {{
+            summary.categoryName
+          }}:
+          {{
+            formatCurrency(
+              summary.total
+            )
+          }}
+        </span>
       </div>
-    </UPageCard>
+
+      <UButton
+        to="/summary/categories"
+        class="justify-center"
+        color="primary"
+        variant="soft"> Resumo Completo
+      </UButton>
+    </div>
+  </UPageCard>
 </template>
 
 

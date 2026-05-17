@@ -9,8 +9,6 @@ const UButton = resolveComponent('UButton')
 const supplierStore = useSupplierStore()
 const globalStore = useGlobalStore()
 
-const data = supplierStore.listSuppliers
-
 // Apresentação da Tabela
 const columns: TableColumn<Supplier>[] = [
   {
@@ -33,6 +31,6 @@ const columns: TableColumn<Supplier>[] = [
 
 
 <template>
-    <UTable :data="data" :columns="columns" class="flex-1 h-[70vh] overflow-y-auto" :ui="{
+    <UTable :data="supplierStore.listSuppliers" :columns="columns" class="flex-1 h-[70vh] overflow-y-auto" :ui="{
   thead: 'sticky top-0 z-10'}"/>
 </template>

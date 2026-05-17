@@ -1,6 +1,6 @@
 <template>
   <UPageCard>
-    <SummaryCategoryInputTable/>
-    <SummaryCategoryExpenseTable/>
+    <SummaryCategories/>
+   
   </UPageCard>
 </template>

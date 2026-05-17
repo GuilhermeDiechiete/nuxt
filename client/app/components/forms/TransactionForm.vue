@@ -17,10 +17,11 @@ const paymentStore = usePaymentStore()
 const supplierStore = useSupplierStore()
 
 const form = reactive({
-  type: globalStore.navegation as 'inputs' | 'outputs',
+  transaction_type: globalStore.navegation,
   date: '',
   description: '',
   category: '',
+  category_name: '',
   supplier: '',
   payment: '',
   current_installment: 1,
@@ -49,7 +50,8 @@ const categoryOptions = computed(() =>
     : categoryStore.inputs
   ).map(c => ({
     label: c.name,
-    value: c.name
+    value: c.name,
+    categoryType: c.category
   }))
 )
 const paymentOptions = computed(() =>
@@ -81,6 +83,19 @@ async function submit(event: FormSubmitEvent<TransactionSchema>) {
   if (res) await transactionStore.fetchTransaction()
   
 }
+watch(
+  () => form.category_name,
+  (value) => {
+
+    const selected = categoryOptions.value.find(
+      item => item.value === value
+    )
+
+    if (selected) {
+      form.category = selected.categoryType
+    }
+  }
+)
 </script>
 
 <template>
@@ -106,7 +121,7 @@ async function submit(event: FormSubmitEvent<TransactionSchema>) {
         </UFormField>
 
         <UFormField label="Categoria" name="category">
-          <USelect v-model="form.category" :items="categoryOptions" placeholder="Selecione" class="w-full"/>
+          <USelect v-model="form.category_name" :items="categoryOptions" placeholder="Selecione" class="w-full"/>
         </UFormField>
 
         <UFormField label="Fornecedor" name="supplier" v-if="globalStore.client_type === 'PJ'">

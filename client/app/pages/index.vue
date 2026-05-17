@@ -47,7 +47,7 @@ const cards = ref([
     :links="links"
   >
     <img
-      src="/beemain.png"
+      src="/favicon.ico"
       alt="Bee Finance"
       class="md:w-52 lg:w-64 object-contain mx-auto"
       loading="lazy"

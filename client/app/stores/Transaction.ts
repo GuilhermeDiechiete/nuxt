@@ -8,7 +8,7 @@ type TransactionItem = {
   description: string
   amount: number
   date: string
-  type: string
+  transaction_type: string
   category: string
 }
 
@@ -38,9 +38,7 @@ state: () => ({
   TotalOutputsSum: 0,
   TotalBalance: 0,
 
-  InputsCategories: [] as CategorySummary[],
-  OutputsCategories: [] as CategorySummary[],
-  loading: false
+
 }),
  
 
@@ -150,54 +148,6 @@ state: () => ({
       }
     },
 
-    // Busca resumo por categoria (mensal + anual)
-// Busca resumo por categoria (mensal + anual)
-async fetchCategorySummary() {
-  const globalStore = useGlobalStore()
-  const sessionStore = useSessionStore()
-
-  this.loading = true
-
-  try {
-
-    const res = await $fetch<{
-      inputs: CategorySummary[]
-      outputs: CategorySummary[]
-      message: string
-    }>(
-      `${api.routes.transactions}/categories`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `${sessionStore.token}`
-        },
-        params: {
-          year: globalStore.year
-        }
-      }
-    )
-
-    // salva no state
-    this.InputsCategories = res.inputs
-    this.OutputsCategories = res.outputs
-
-    globalStore.msg_success = res.message
-
-    return true
-
-  } catch (error: any) {
-
-    globalStore.msg_error =
-      error?.data?.message ||
-      error?.message ||
-      'Erro inesperado'
-
-    return false
-
-  } finally {
-    this.loading = false
-  }
-},
 async toggleStatus(id: number) {
   const globalStore = useGlobalStore()
   const sessionStore = useSessionStore()

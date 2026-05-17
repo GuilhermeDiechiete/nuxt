@@ -3,6 +3,7 @@ export interface Supplier {
 
   // Informações Basicas
   type: string // Fornecedor (PF ou PJ)
+  transaction_type: string
   companyName: string
   tradeName:  string
   document: string

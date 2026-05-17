@@ -3,11 +3,16 @@ import * as v from 'valibot'
 export const supplierSchema = v.object({
   type: v.picklist(['PF', 'PJ'], 'Selecione PF ou PJ'),
 
+  
   company_name: v.pipe(
     v.string(),
     v.minLength(1, 'Razão social é obrigatória')
   ),
 
+  transaction_type: v.pipe(
+    v.string(),
+    v.minLength(4, 'Nome deve ter no mínimo 4 caracteres')
+  ),
   trade_name: v.pipe(
     v.string(),
     v.minLength(1, 'Nome fantasia é obrigatório')

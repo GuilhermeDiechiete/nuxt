@@ -91,7 +91,7 @@ const columns: TableColumn<Transaction>[] = [
   },
 
   {
-    accessorKey: 'category',
+    accessorKey: 'categoryName',
     header: 'Categoria',
     meta: center
   },
