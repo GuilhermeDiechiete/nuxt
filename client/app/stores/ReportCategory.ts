@@ -19,8 +19,9 @@ export const useReportStore = defineStore('report', {
     totalInputsByMonth: {},
 
     outputsCategoriesSummary: {},
-    inputsCategoriesSummary: {}
+    inputsCategoriesSummary: {},
   
+    topCategories: []
   }),
 
   actions: {
@@ -41,7 +42,8 @@ export const useReportStore = defineStore('report', {
             method: 'GET',
 
             params: {
-              year: globalStore.year
+              year: globalStore.year,
+              month: globalStore.month
             }
           }
         )
@@ -60,8 +62,10 @@ export const useReportStore = defineStore('report', {
 
         this.outputsCategoriesSummary = res.outputsCategoriesSummary
         this.inputsCategoriesSummary = res.inputsCategoriesSummary
-        // verificar se esta em uso
 
+        this.topCategories = res.topCategories
+        // verificar se esta em uso
+        
         return true
 
       } catch (error: any) {

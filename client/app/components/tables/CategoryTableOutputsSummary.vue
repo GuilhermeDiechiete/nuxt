@@ -157,7 +157,15 @@ const columns: TableColumn<Categories>[] = [
     header: ({ column }) =>
       getHeader(column, 'Categoria'),
 
-    footer: () => 'TOTAL'
+    cell: ({ row }) => {
+      const type = row.original.category
+
+      return type === 'fixed'
+        ? 'Fixo'
+        : 'Variável'
+    },
+
+    footer: () => 'TOTAL A.M'
   },
 
   {

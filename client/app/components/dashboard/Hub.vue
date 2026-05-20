@@ -7,7 +7,6 @@ import { useGlobalStore } from '#imports'
 // 2 - Alterar os hubs para o usuário, conforme o dashboard (outputs, inputs, reports and investiments)
 
 const globalStore = useGlobalStore()
-const clientType = ref('pj')
 
 // recebe table da página
 const props = defineProps<{
